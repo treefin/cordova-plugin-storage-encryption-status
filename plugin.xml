@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    id="cordova-plugin-storage-encryption-status"
+    version="0.0.1">
+
+    <name>Storage Encryption Status</name>
+    <description>Cordova plugin to determine the encryption status of device's storage</description>
+    <keywords>cordova,storage,encryption</keywords>
+    <license>MIT</license>
+
+    <repo>https://github.com/treefin/cordova-plugin-storage-encryption-status.git</repo>
+    <issue>https://github.com/treefin/cordova-plugin-storage-encryption-status/issues</issue>
+
+    <engines>
+        <engine name="cordova"
+            version=">=9.0.0"/>
+        <engine name="cordova-android"
+            version=">=8.0.0"/>
+        <engine name="cordova-ios"
+            version=">=5.0.0"/>
+    </engines>
+
+    <js-module src="www/storageEncryptionStatus.js"
+        name="StorageEncryptionStatus">
+        <clobbers target="StorageEncryptionStatus"/>
+    </js-module>
+
+    <platform name="android">
+        <source-file src="src/android/EncryptionStatus.java"
+            target-dir="src/com/treefin/cordova/storageencryptionstatus"/>
+        <source-file src="src/android/StorageEncryptionStatus.java"
+            target-dir="src/com/treefin/cordova/storageencryptionstatus"/>
+
+        <config-file target="res/xml/config.xml"
+            parent="/*">
+            <feature name="StorageEncryptionStatus">
+                <param name="android-package"
+                    value="com.treefin.cordova.storageencryptionstatus.StorageEncryptionStatus"/>
+            </feature>
+        </config-file>
+    </platform>
+
+    <platform name="ios">
+        <header-file src="src/ios/StorageEncryptionStatus.h"/>
+        <source-file src="src/ios/StorageEncryptionStatus.m"/>
+
+        <config-file target="config.xml"
+            parent="/*">
+            <feature name="StorageEncryptionStatus">
+                <param name="ios-package"
+                    value="StorageEncryptionStatus"/>
+            </feature>
+        </config-file>
+    </platform>
+</plugin>

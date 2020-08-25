@@ -1,0 +1,50 @@
+{
+  "name": "cordova-plugin-storage-encryption-status",
+  "version": "0.0.1",
+  "description": "Cordova plugin to determine the encryption status of device's storage",
+  "cordova": {
+    "id": "cordova-plugin-storage-encryption-status",
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  },
+  "engines": {
+    "cordovaDependencies": {
+      ">=0.0.1": {
+        "cordova-android": ">=8.0.0",
+        "cordova-ios": ">=5.0.0"
+      }
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/treefin/cordova-plugin-storage-encryption-status.git"
+  },
+  "keywords": [
+    "cordova",
+    "storage",
+    "encryption",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "author": "Dimitri Benin <dimitri.benin@treefin.com>",
+  "license": "MIT",
+  "files": [
+    "src/",
+    "www/",
+    "plugin.xml"
+  ],
+  "bugs": {
+    "url": "https://github.com/treefin/cordova-plugin-storage-encryption-status/issues"
+  },
+  "homepage": "https://github.com/treefin/cordova-plugin-storage-encryption-status#readme",
+  "scripts": {
+    "version": "cordova-plugin-xml setVersion",
+    "test": "make test"
+  },
+  "devDependencies": {
+    "cordova-plugin-xml": "^0.1.3"
+  }
+}
