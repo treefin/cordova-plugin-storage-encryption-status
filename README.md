@@ -1,6 +1,6 @@
 # Cordova plugin to determine the encryption status of device's storage
 
-<!--[![NPM version][npm-version]][npm-url] [![NPM downloads][npm-downloads]][npm-url]-->
+[![NPM version][npm-version]][npm-url] [![NPM downloads][npm-downloads]][npm-url]
 
 ## Index
 
@@ -40,6 +40,10 @@ storageEncryptionStatus.getEncryptionStatus().then((encryptionStatus) => {
     // => encryptionStatus: ENCRYPTION_STATUS_ACTIVE_PER_USER
 });
 ```
+
+You can find a working example in the `example/` directory of this project. To build it,
+run `npm test`. A working project will be generated in `/tmp/cordova-plugin-storage-encryption-status`.
+From there, you can start the example app via `cordova run android` or `cordova run ios`.
 
 ## API
 
