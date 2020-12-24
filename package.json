@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-storage-encryption-status",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Cordova plugin to determine the encryption status of device's storage",
   "cordova": {
     "id": "cordova-plugin-storage-encryption-status",
