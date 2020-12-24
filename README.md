@@ -28,52 +28,58 @@ $ cordova plugin add cordova-plugin-storage-encryption-status
 ## Usage
 
 ```js
-const StorageEncryptionStatus = window.StorageEncryptionStatus;
+const storageEncryptionStatus = cordova.plugins.storageEncryptionStatus;
 
-StorageEncryptionStatus.isEncrypted().then((isEncrypted) => {
-    console.log("isEncrypted: " + isEncrypted);
+storageEncryptionStatus.isEncrypted().then((isEncrypted) => {
+    console.log(`isEncrypted: ${isEncrypted}`);
+    // => isEncrypted: true
 });
 
-StorageEncryptionStatus.getEncryptionStatus().then((encryptionStatus) => {
-    console.log("encryptionStatus: " + encryptionStatus);
+storageEncryptionStatus.getEncryptionStatus().then((encryptionStatus) => {
+    console.log(`encryptionStatus: ${encryptionStatus}`);
+    // => encryptionStatus: ENCRYPTION_STATUS_ACTIVE_PER_USER
 });
 ```
 
 ## API
 
-### StorageEncryptionStatus.isEncrypted()
+### storageEncryptionStatus.isEncrypted()
 
-Returns a `Promise` that fulfills with the device's encryption status as a boolean.
+Whether device's storage is encrypted. Returns a `Promise` that fulfills with the device's encryption status as a `boolean`.
 
-### StorageEncryptionStatus.getEncryptionStatus()
+### storageEncryptionStatus.getEncryptionStatus()
 
-Returns a `Promise` that fulfills with the device's encryption status as one the encryption status enum values.
+Determines the device's detailed encryption status. Returns a `Promise` that fulfills with the device's encryption status as one the encryption status enum values (see [`storageEncryptionStatus.statusValues`](#storageEncryptionStatusstatusValues)).
 
-### StorageEncryptionStatus.states
+### storageEncryptionStatus.statusValues
 
-An `object` that has keys and values for all the possible states that can be returned by `StorageEncryptionStatus.getEncryptionStatus()`.
+An a lookup hashmap (as a plain JS `object`) for all the possible values that can be returned by `StorageEncryptionStatus.getEncryptionStatus()`.
 
-#### "ENCRYPTION_STATUS_UNSUPPORTED"
+See [DevicePolicyManager docs](<https://developer.android.com/reference/android/app/admin/DevicePolicyManager.html#getStorageEncryptionStatus()>) for more information on the meaning of enum values on Android.
+
+On iOS, only the values `'ENCRYPTION_STATUS_UNSUPPORTED'`, `'ENCRYPTION_STATUS_INACTIVE'`, and `'ENCRYPTION_STATUS_ACTIVE_PER_USER'` are used.
+
+#### ENCRYPTION_STATUS_UNSUPPORTED: "ENCRYPTION_STATUS_UNSUPPORTED"
 
 Indicates that encryption is not supported.
 
-#### "ENCRYPTION_STATUS_INACTIVE"
+#### ENCRYPTION_STATUS_INACTIVE: "ENCRYPTION_STATUS_INACTIVE"
 
 Indicates that encryption is supported, but is not currently active.
 
-#### "ENCRYPTION_STATUS_ACTIVATING"
+#### ENCRYPTION_STATUS_ACTIVATING: "ENCRYPTION_STATUS_ACTIVATING"
 
 Indicates that encryption is not currently active, but is currently being activated.
 
-#### "ENCRYPTION_STATUS_ACTIVE"
+#### ENCRYPTION_STATUS_ACTIVE: "ENCRYPTION_STATUS_ACTIVE"
 
 Indicates that encryption is active.
 
-#### "ENCRYPTION_STATUS_ACTIVE_DEFAULT_KEY"
+#### ENCRYPTION_STATUS_ACTIVE_DEFAULT_KEY: "ENCRYPTION_STATUS_ACTIVE_DEFAULT_KEY"
 
 Indicates that encryption is active, but an encryption key has not been set by the user.
 
-#### "ENCRYPTION_STATUS_ACTIVE_PER_USER"
+#### ENCRYPTION_STATUS_ACTIVE_PER_USER: "ENCRYPTION_STATUS_ACTIVE_PER_USER"
 
 Indicates that encryption is active and the encryption key is tied to the user or profile.
 

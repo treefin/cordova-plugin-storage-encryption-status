@@ -9,9 +9,10 @@
       "android"
     ]
   },
+  "types": "./types/index.d.ts",
   "engines": {
     "cordovaDependencies": {
-      ">=0.0.1": {
+      ">=1.0.0": {
         "cordova-android": ">=8.0.0",
         "cordova-ios": ">=5.0.0"
       }
@@ -33,6 +34,7 @@
   "license": "MIT",
   "files": [
     "src/",
+    "types/",
     "www/",
     "plugin.xml"
   ],
@@ -41,7 +43,7 @@
   },
   "homepage": "https://github.com/treefin/cordova-plugin-storage-encryption-status#readme",
   "scripts": {
-    "version": "cordova-plugin-xml setVersion",
+    "version": "cordova-plugin-xml setVersion && git add plugin.xml",
     "test": "make test"
   },
   "devDependencies": {

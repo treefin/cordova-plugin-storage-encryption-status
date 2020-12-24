@@ -1,3 +1,21 @@
+document.addEventListener(
+    "deviceready",
+    () => {
+        const storageEncryptionStatus = cordova.plugins.storageEncryptionStatus;
+
+        storageEncryptionStatus.isEncrypted().then((isEncrypted) => {
+            log("isEncrypted", isEncrypted);
+        });
+
+        storageEncryptionStatus
+            .getEncryptionStatus()
+            .then((encryptionStatus) =>
+                log("encryptionStatus", encryptionStatus)
+            );
+    },
+    false
+);
+
 const consoleEl = document.getElementById("console");
 
 function log(...args) {
@@ -6,32 +24,12 @@ function log(...args) {
     const argsAsSting = args
         .map((arg) => {
             if (arg instanceof Error) {
-                return `{Error: ${arg.message}}`;
-            } else if (arg === undefined) {
-                return "undefined";
+                return `Error: ${arg.message}`;
             } else {
-                return JSON.stringify(arg);
+                return String(JSON.stringify(arg));
             }
         })
         .join(" ");
 
     consoleEl.textContent += `> ${argsAsSting}\n`;
 }
-
-document.addEventListener(
-    "deviceready",
-    () => {
-        const StorageEncryptionStatus = window.StorageEncryptionStatus;
-
-        StorageEncryptionStatus.isEncrypted().then((isEncrypted) => {
-            log("isEncrypted", isEncrypted);
-        });
-
-        StorageEncryptionStatus.getEncryptionStatus().then(
-            (encryptionStatus) => {
-                log("encryptionStatus", encryptionStatus);
-            }
-        );
-    },
-    false
-);

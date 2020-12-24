@@ -1,21 +1,27 @@
 const cordova = require("cordova");
 
-const ENCRYPTION_STATUS_REVERSE = {
-    0: "ENCRYPTION_STATUS_UNSUPPORTED",
-    1: "ENCRYPTION_STATUS_INACTIVE",
-    2: "ENCRYPTION_STATUS_ACTIVATING",
-    3: "ENCRYPTION_STATUS_ACTIVE",
-    4: "ENCRYPTION_STATUS_ACTIVE_DEFAULT_KEY",
-    5: "ENCRYPTION_STATUS_ACTIVE_PER_USER",
-};
+const ENCRYPTION_STATUS_FROM_NUMBER = [
+    "ENCRYPTION_STATUS_UNSUPPORTED",
+    "ENCRYPTION_STATUS_INACTIVE",
+    "ENCRYPTION_STATUS_ACTIVATING",
+    "ENCRYPTION_STATUS_ACTIVE",
+    "ENCRYPTION_STATUS_ACTIVE_DEFAULT_KEY",
+    "ENCRYPTION_STATUS_ACTIVE_PER_USER",
+];
 
 /**
- * Enum for all possible encryption status values.
+ * All possible values that can be returned by StorageEncryptionStatus.getEncryptionStatus().
+ *
+ * See [DevicePolicyManager docs](https://developer.android.com/reference/android/app/admin/DevicePolicyManager.html#getStorageEncryptionStatus())
+ * for more information on the meaning of enum values on Android.
+ *
+ * On iOS, only the values `'ENCRYPTION_STATUS_UNSUPPORTED'`, `'ENCRYPTION_STATUS_INACTIVE'`,
+ * and `'ENCRYPTION_STATUS_ACTIVE_PER_USER'` are used.
  *
  * @readonly
  * @enum {string}
  */
-const ENCRYPTION_STATUS = Object.freeze({
+const ENCRYPTION_STATUS_VALUES = Object.freeze({
     /**
      * Indicates that encryption is not supported.
      */
@@ -44,12 +50,21 @@ const ENCRYPTION_STATUS = Object.freeze({
 });
 
 const storageEncryptionStatus = {
-    states: ENCRYPTION_STATUS,
+    /**
+     * All possible values that can be returned by StorageEncryptionStatus.getEncryptionStatus().
+     *
+     * See [DevicePolicyManager docs](https://developer.android.com/reference/android/app/admin/DevicePolicyManager.html#getStorageEncryptionStatus())
+     * for more information on the meaning of enum values on Android.
+     *
+     * On iOS, only the values `'ENCRYPTION_STATUS_UNSUPPORTED'`, `'ENCRYPTION_STATUS_INACTIVE'`,
+     * and `'ENCRYPTION_STATUS_ACTIVE_PER_USER'` are used.
+     */
+    statusValues: ENCRYPTION_STATUS_VALUES,
 
     /**
-     * Determines the device's encryption status as a boolean.
+     * Whether device's storage is encrypted.
      *
-     * @returns {Promise.<boolean>} - the device's encryption status as a boolean
+     * @returns {Promise.<boolean>} - a Promise that fulfills with the device's encryption status
      */
     isEncrypted() {
         return new Promise((resolve, reject) => {
@@ -66,16 +81,18 @@ const storageEncryptionStatus = {
     },
 
     /**
-     * Determines device's encryption status as one the encryption status enum values.
-     * Note: not all platforms will use all provided enum constants.
+     * Determines the device's detailed encryption status.
      *
-     * @returns {Promise.<string>} - the device's encryption status as a constant value
+     * @returns {Promise.<string>} - a Promise that fulfills with the device's encryption status as one of the
+     * constants from the `statusValues` enum
      */
     getEncryptionStatus() {
         return new Promise((resolve, reject) => {
             cordova.exec(
                 (result) => {
-                    resolve(ENCRYPTION_STATUS_REVERSE[result.encryptionStatus]);
+                    resolve(
+                        ENCRYPTION_STATUS_FROM_NUMBER[result.encryptionStatus]
+                    );
                 },
                 reject,
                 "StorageEncryptionStatus",

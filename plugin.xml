@@ -22,7 +22,7 @@
 
     <js-module src="www/storageEncryptionStatus.js"
         name="StorageEncryptionStatus">
-        <clobbers target="StorageEncryptionStatus"/>
+        <merges target="cordova.plugins.storageEncryptionStatus"/>
     </js-module>
 
     <platform name="android">
